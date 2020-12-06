@@ -126,10 +126,19 @@ class _VideoPageDetailsState extends State<VideoPageDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 _buildCircleIcon(
-                    label: "Start over", icon: Icons.settings_backup_restore),
-                _buildCircleIcon(label: "Download", icon: Icons.file_download),
-                _buildCircleIcon(label: "Watchlist", icon: Icons.add),
-                _buildCircleIcon(label: "Share", icon: Icons.share),
+                    label: "Start over",
+                    icon: Icons.settings_backup_restore,
+                    onPressed: null),
+                _buildCircleIcon(
+                    label: "Download",
+                    icon: Icons.file_download,
+                    onPressed: null),
+                _buildCircleIcon(
+                    label: "Watchlist", icon: Icons.add, onPressed: null),
+                _buildCircleIcon(
+                    label: "Share",
+                    icon: Icons.share,
+                    onPressed: _sharedWatchable),
               ],
             ),
           ),
@@ -290,36 +299,96 @@ class _VideoPageDetailsState extends State<VideoPageDetails> {
     );
   }
 
-  Widget _buildCircleIcon({@required String label, @required IconData icon}) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(bottom: 4.0),
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100.0),
-              border: Border.all(
+  Widget _buildCircleIcon(
+      {@required String label,
+      @required IconData icon,
+      @required Function onPressed}) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(bottom: 4.0),
+              padding: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100.0),
+                border: Border.all(
+                  color: Colors.grey[600],
+                  width: 2.0,
+                ),
+              ),
+              child: Icon(
+                icon,
+                size: 20.0,
                 color: Colors.grey[600],
-                width: 2.0,
               ),
             ),
-            child: Icon(
-              icon,
-              size: 20.0,
-              color: Colors.grey[600],
+            Text(
+              label,
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 10.0,
+                fontWeight: FontWeight.w600,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _sharedWatchable() {
+    String name = "Mercenarios 3";
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(24, 31, 39, 1),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(top: 16.0, left: 20.0, bottom: 10.0),
+              child: Text(
+                name,
+                style: TextStyle(
+                    color: Colors.grey[100],
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w700),
+              ),
             ),
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 10.0,
-              fontWeight: FontWeight.w600,
-            ),
-          )
-        ],
+            _tileButton("SMS", Icons.sms),
+            _tileButton("Copy", Icons.link),
+            _tileButton("More", Icons.more_horiz, true),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _tileButton([String text, IconData icon, bool isLastItem = false]) {
+    return InkWell(
+      onTap: () => print(text),
+      child: Padding(
+        padding:
+            EdgeInsets.only(top: 14.0, left: 14.0, bottom: isLastItem ? 20 : 0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Icon(icon, color: Colors.grey[400]),
+            Container(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text(text,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey[400],
+                    ))),
+          ],
+        ),
       ),
     );
   }
