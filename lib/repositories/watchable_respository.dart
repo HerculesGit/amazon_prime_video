@@ -233,5 +233,78 @@ class WatchableRepository {
         }
       ],
     },
+    'Kids': {
+      'carousel': [
+        'https://i.ytimg.com/vi/APyim55ZM2c/maxresdefault.jpg',
+        'https://i.ytimg.com/vi/bwGRxdpFmRU/maxresdefault.jpg',
+        'https://i.ytimg.com/vi/Q7MaTqgtoxE/maxresdefault.jpg',
+      ],
+      'categories': [
+        {
+          'name': 'Watch next movies',
+          'movies': [
+            {
+              'name': 'Dora',
+              'url': 'https://i.ytimg.com/vi/APyim55ZM2c/maxresdefault.jpg'
+            },
+            {
+              'name': 'Kung Fu Panda',
+              'url': 'https://i.ytimg.com/vi/yCk9VAxEpD0/hqdefault.jpg'
+            },
+            {
+              'name': 'Patati Patata',
+              'url': 'https://i.ytimg.com/vi/WJab4pLAQsg/hqdefault.jpg'
+            },
+          ],
+        },
+        {
+          'name': 'Funny',
+          'movies': [
+            {
+              'name': 'Meet Dave',
+              'url': 'https://i.ytimg.com/vi/Y-0vUXX084c/maxresdefault.jpg'
+            },
+            {
+              'name': 'De Volta ao Fundo do Mar',
+              'url': 'https://i.ytimg.com/vi/w8Dzld_k7HY/hqdefault.jpg'
+            },
+            {
+              'name': 'The Little Ghost',
+              'url': 'https://i.ytimg.com/vi/oUCFU28js18/maxresdefault.jpg'
+            }
+          ],
+        },
+        {
+          'name': 'Brazilian TV for Kids',
+          'movies': [
+            {
+              'name': 'Osmar 2',
+              'url': 'https://i.ytimg.com/vi/DlUXehDm5sg/maxresdefault.jpg'
+            },
+            {
+              'name': 'Peixonauta',
+              'url': 'https://i.ytimg.com/vi/s1PcmR44VxY/maxresdefault.jpg'
+            }
+          ],
+        },
+        {
+          'name': 'Recently added movies',
+          'movies': [
+            {
+              'name': 'Sequestro',
+              'url': 'https://i.ytimg.com/vi/Uba0RYjS4EI/maxresdefault.jpg'
+            },
+            {
+              'name': 'Entre A Vingança E O Perdão',
+              'url': 'https://i.ytimg.com/vi/CxABWZmT0H8/maxresdefault.jpg'
+            },
+            {
+              'name': 'A Pele de Onagro',
+              'url': 'https://i.ytimg.com/vi/DD6moinW5Xg/hqdefault.jpg'
+            }
+          ],
+        }
+      ],
+    },
   };
 }
