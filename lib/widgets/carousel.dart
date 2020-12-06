@@ -13,19 +13,20 @@ class Carousel extends StatefulWidget {
       @required this.height});
 
   @override
-  _CarouselState createState() => _CarouselState(photos, width, height);
+  _CarouselState createState() => _CarouselState(width, height);
 }
 
 class _CarouselState extends State<Carousel> {
-  final List<String> photos;
+  List<String> photos;
   final double width;
   final double height;
   int photoIndex = 0;
 
-  _CarouselState(this.photos, this.width, this.height);
+  _CarouselState(this.width, this.height);
 
   @override
   Widget build(BuildContext context) {
+    photos = widget.photos;
     return _buildCarousel();
   }
 
@@ -35,7 +36,7 @@ class _CarouselState extends State<Carousel> {
       widgets.add(Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(photo),
+            image: NetworkImage(photo),
             fit: BoxFit.cover,
           ),
         ),

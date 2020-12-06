@@ -1,92 +1,25 @@
+import 'package:amazon_prime_video/pages/home/home_presenter.dart';
 import 'package:amazon_prime_video/pages/video_details/video_details_page.dart';
+import 'package:amazon_prime_video/repositories/watchable_respository.dart';
 import 'package:amazon_prime_video/widgets/carousel.dart';
+import 'package:amazon_prime_video/widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> implements IHomeContract {
+  HomePresenter presenter;
+
   Size _size;
 
-  List<String> photos = [
-    'assets/images/sasuke.jpg',
-    'assets/images/sasuke_horizon.jpg'
-  ];
-
-  Map<String, dynamic> mockData = {
-    'categories': [
-      {
-        'name': 'Amazon Originals an Exclusives',
-        'movies': [
-          {
-            'name': 'STUMPTOWN',
-            'url':
-                'https://poltronanerd.com.br/wp-content/uploads/2020/09/Stumptown.jpg'
-          },
-          {
-            'name': 'UTOPIA',
-            'url': 'https://i.vimeocdn.com/video/836493924_1280x720.jpg'
-          },
-          {
-            'name': 'ALEX RIDER',
-            'url': 'https://i.ytimg.com/vi/U9g9A005UNQ/maxresdefault.jpg'
-          }
-        ],
-      },
-      {
-        'name': 'Recommended movies',
-        'movies': [
-          {
-            'name': 'CÃO DE BRIGA',
-            'url':
-                'https://images.justwatch.com/backdrop/8871157/s1440/cao-de-briga.jpg'
-          },
-          {
-            'name': 'RAMBO',
-            'url': 'https://i.ytimg.com/vi/sGTGdpwcxP0/maxresdefault.jpg'
-          },
-          {
-            'name': 'PRISION BREAK',
-            'url':
-                'https://cdn.fstatic.com/media/movies/photos/2019/06/prison-break-o-resga_t13341.jpg'
-          }
-        ],
-      },
-      {
-        'name': 'TV show we think you\'ll like',
-        'movies': [
-          {
-            'name': 'BLACK BOX',
-            'url': 'https://i.ytimg.com/vi/Qrc8wQqnl0g/maxresdefault.jpg'
-          },
-          {
-            'name': 'HAND NIGHT',
-            'url': 'https://i.ytimg.com/vi/BJsQ6zGsnVg/maxresdefault.jpg'
-          }
-        ],
-      },
-      {
-        'name': 'Recently added movies',
-        'movies': [
-          {
-            'name': 'OLHOS DE DRAGÃO',
-            'url': 'https://i.ytimg.com/vi/CK5jXnJA_-Q/maxresdefault.jpg'
-          },
-          {
-            'name': 'RAMBO',
-            'url':
-                'https://hmlobservatoriodocinema.elav.tmp.br/wp-content/uploads/2018/07/Jean-Claude-Van-Damme-O-Grande-Dragao-Branco.jpg'
-          },
-          {
-            'name': 'RINGUE DA MORTE',
-            'url': 'https://i.ytimg.com/vi/GkzhFUa4SQ8/maxresdefault.jpg'
-          }
-        ],
-      }
-    ],
-  };
+  static final String txtTabHome = 'Home';
+  static final String txtTvShows = 'TV Shows';
+  static final String txtMovies = 'Movies';
+  static final String txtKids = 'Kids';
 
   int tabIndex = 0;
 
@@ -97,6 +30,13 @@ class _HomePageState extends State<HomePage> {
       fontSize: 12.0);
 
   @override
+  initState() {
+    super.initState();
+    presenter = HomePresenter(this, WatchableRepository());
+    presenter.findAllWatchableByCategory(txtTabHome);
+  }
+
+  @override
   Widget build(BuildContext context) {
     _size = (MediaQuery.of(context).size);
     return Scaffold(
@@ -105,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         slivers: <Widget>[
           _sliverAppBar(),
           _buildCarousel(),
-          _buildHome(),
+          _buildBodyObservable(),
         ],
       ),
     );
@@ -133,10 +73,10 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                _tabBar("Home", 0),
-                _tabBar("TV Shows", 1),
-                _tabBar("Movies", 2),
-                _tabBar("Kids", 3),
+                _tabBar(txtTabHome, 0),
+                _tabBar(txtTvShows, 1),
+                _tabBar(txtMovies, 2),
+                _tabBar(txtKids, 3),
               ],
             ),
           ),
@@ -151,6 +91,7 @@ class _HomePageState extends State<HomePage> {
         splashColor: Colors.transparent,
         onTap: () {
           print("$text");
+          presenter.findAllWatchableByCategory(text);
           setState(() {
             tabIndex = index;
           });
@@ -169,57 +110,76 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget _tabBarView() {}
-
   Widget _buildCarousel() {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) => Container(
-          child: Carousel(
-              photos: photos,
-              changePhoto: (index) {
-                print(index);
-              },
-              width: _size.width,
-              height: _size.height * 0.2),
+          child: Observer(builder: (_) {
+            if (presenter.loading) return Container();
+            List<String> photos = presenter.photos.toList();
+            return Carousel(
+                photos: photos,
+                changePhoto: (index) {
+                  print(index);
+                },
+                width: _size.width,
+                height: _size.height * 0.2);
+          }),
         ),
         childCount: 1,
       ),
     );
   }
 
-  // Widget _buildView() {
-
-  // }
-
-  Widget _buildHome() {
-    List categories = (mockData['categories'] as List);
+  Widget _buildBodyObservable() {
     return SliverList(
-      delegate: SliverChildBuilderDelegate((context, index) {
-        return Container(
-          margin: EdgeInsets.only(bottom: 16.0),
-          height: 120,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.only(left: 14.0),
-                child: Text(
-                  categories[index]['name'],
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                  ),
+      delegate: SliverChildBuilderDelegate(
+        (context, _) => Observer(
+          builder: (context) {
+            if (presenter.loading) {
+              return Container(
+                  height: 200, child: Center(child: MyProgressIndicator()));
+            }
+
+            List categories = (presenter.data['categories'] as List);
+            return Column(
+              children: _buildWidgetCategories(categories),
+            );
+          },
+        ),
+        childCount: 1,
+      ),
+    );
+  }
+
+  List<Widget> _buildWidgetCategories(List categories) {
+    List<Widget> categoriesWidget = [];
+    categories.forEach(
+      (category) => categoriesWidget.add(Container(
+        margin: EdgeInsets.only(bottom: 16.0),
+        height: 120,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.only(left: 14.0),
+              child: Text(
+                category['name'],
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
                 ),
               ),
-              _buildMovies(categories[index]['movies'])
-            ],
-          ),
-        );
-      }, childCount: categories.length),
+            ),
+            _buildMovies(category['movies'])
+          ],
+        ),
+      )),
     );
+
+    return categoriesWidget;
   }
 
   Widget _buildMovies(List<Map<String, dynamic>> movies) => Flexible(
