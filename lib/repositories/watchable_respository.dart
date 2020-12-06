@@ -160,5 +160,78 @@ class WatchableRepository {
         }
       ],
     },
+    'Movies': {
+      'carousel': [
+        'https://i.ytimg.com/vi/MZj7G_TDrmQ/maxresdefault.jpg',
+        'https://i.ytimg.com/vi/Xk9yNpTxA5w/maxresdefault.jpg',
+        'https://i.ytimg.com/vi/vRHXSF0EyDM/maxresdefault.jpg',
+      ],
+      'categories': [
+        {
+          'name': 'Watch next movies',
+          'movies': [
+            {
+              'name': 'Street Fight',
+              'url': 'https://i.ytimg.com/vi/MZj7G_TDrmQ/maxresdefault.jpg'
+            },
+            {
+              'name': 'Shrek',
+              'url': 'https://i.ytimg.com/vi/Lg8PL6nAtSQ/maxresdefault.jpg'
+            },
+            {
+              'name': 'Angry Birds',
+              'url': 'https://i.ytimg.com/vi/fpw37HP1e1U/maxresdefault.jpg'
+            }
+          ],
+        },
+        {
+          'name': 'Amazon Original movies',
+          'movies': [
+            {
+              'name': 'The LIE',
+              'url': 'https://i.ytimg.com/vi/i84yWy-Mnts/maxresdefault.jpg'
+            },
+            {
+              'name': '7500',
+              'url': 'https://i.ytimg.com/vi/CBLgZ8oy_aA/hqdefault.jpg'
+            },
+            {
+              'name': 'Sharke Whater Extention',
+              'url': 'https://i.ytimg.com/vi/RQYHBrtYsnk/maxresdefault.jpg'
+            }
+          ],
+        },
+        {
+          'name': 'TV show we think you\'ll like',
+          'movies': [
+            {
+              'name': 'Além da Suspeita',
+              'url': 'https://i.ytimg.com/vi/DMaEt3F2UWI/maxresdefault.jpg'
+            },
+            {
+              'name': 'Mr Bean Holiday',
+              'url': 'https://i.ytimg.com/vi/vRHXSF0EyDM/maxresdefault.jpg'
+            }
+          ],
+        },
+        {
+          'name': 'Recently added movies',
+          'movies': [
+            {
+              'name': 'Sequestro',
+              'url': 'https://i.ytimg.com/vi/Uba0RYjS4EI/maxresdefault.jpg'
+            },
+            {
+              'name': 'Entre A Vingança E O Perdão',
+              'url': 'https://i.ytimg.com/vi/CxABWZmT0H8/maxresdefault.jpg'
+            },
+            {
+              'name': 'A Pele de Onagro',
+              'url': 'https://i.ytimg.com/vi/DD6moinW5Xg/hqdefault.jpg'
+            }
+          ],
+        }
+      ],
+    },
   };
 }
