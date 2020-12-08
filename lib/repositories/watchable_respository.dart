@@ -5,6 +5,36 @@ class WatchableRepository {
     return mockData[category];
   }
 
+  /// movieId or serieId
+  Future<Map<String, dynamic>> getCompleteWatchableInfo(
+      String watchableId) async {
+    return watchableInfo;
+  }
+
+  Map<String, dynamic> watchableInfo = {
+    'type': 'movie',
+    'name': 'The Legend of Hercules',
+    'languages': {
+      'audio': [],
+      'subtitles': [],
+    },
+    'castAndCrew': [
+      {
+        'name': 'Taron Egerton',
+        'url':
+            'https://m.media-amazon.com/images/M/MV5BMTYzODU2OTI2Nl5BMl5BanBnXkFtZTgwMTUyMTAwMzE@._V1_.jpg',
+        'from':
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa et ligula sodales eleifend. Cras vitae nulla pharetra, sodales lacus a, pulvinar justo. Pellentesque arcu massa, malesuada vel sagittis tristique, faucibus at est. Mauris at massa non leo dignissim vulputate. Nulla eu blandit magna. Nunc non dui sit amet lorem consequat gravida. ',
+        'know for': '',
+        'trivia':
+            'Curabitur in leo non massa convallis mattis quis id libero. Donec nec metus venenatis, tincidunt velit eget, viverra urna. Vestibulum ac hendrerit dui, s',
+        'quotes':
+            'Vestibulum in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus ut diam nec nunc dictum sagittis. Suspendisse gravida',
+      }
+    ],
+    "director": {}
+  };
+
   Map<String, dynamic> mockData = {
     'Home': {
       'carousel': [

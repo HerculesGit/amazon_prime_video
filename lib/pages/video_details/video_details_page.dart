@@ -65,6 +65,7 @@ class _VideoPageDetailsState extends State<VideoPageDetails> {
             _buildCover(),
             _buildTopBody(),
             _buildTabBar(),
+            _buildCastCrew(),
           ],
         ),
       ),
@@ -93,6 +94,185 @@ class _VideoPageDetailsState extends State<VideoPageDetails> {
               color: Colors.white,
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCastCrew() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Cast & Crew",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Details from",
+                  style: TextStyle(
+                    color: Colors.grey[500],
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 8.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey[400],
+                    ),
+                    borderRadius: BorderRadius.circular(2.0),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(2.0),
+                    child: Text(
+                      "IMDb",
+                      style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: 8.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Wrap(
+            // crossAxisCount: 3,
+            runAlignment: WrapAlignment.spaceAround,
+            alignment: WrapAlignment.spaceBetween,
+            // crossAxisAlignment: WrapCrossAlignment.center,
+            direction: Axis.horizontal,
+            runSpacing: 10,
+            spacing: 10,
+            children: <Widget>[
+              _buildImageCast(),
+              _buildImageCast(),
+              _buildImageCast(),
+              _buildImageCast(),
+            ],
+          ),
+          Divider(
+            height: 2.0,
+            color: Colors.grey,
+          ),
+          _buildDirectorCrew(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageCast() {
+    return Stack(
+      children: <Widget>[
+        ClipRRect(
+          borderRadius: BorderRadius.circular(5.0),
+          child: Image.network(
+            'https://m.media-amazon.com/images/M/MV5BMTYzODU2OTI2Nl5BMl5BanBnXkFtZTgwMTUyMTAwMzE@._V1_.jpg',
+            width: MediaQuery.of(context).size.width / 3 - 18,
+          ),
+        ),
+        Positioned(
+            bottom: 0,
+            child: Text(
+              "Taron Ederton",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10.0,
+              ),
+            )),
+      ],
+    );
+  }
+
+  Widget _buildDirectorCrew() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 100.0, top: 10.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4.0),
+              color: Color.fromRGBO(41, 54, 71, 1),
+            ),
+            child: Stack(
+              fit: StackFit.loose,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20.0, left: 8.0, bottom: 25, right: 8.0),
+                  child: Icon(
+                    Icons.star_border,
+                    color: Colors.amber,
+                    size: 80,
+                  ),
+                ),
+                Positioned(
+                  bottom: 2.0,
+                  left: 40 / 2,
+                  child: Container(
+                    decoration: BoxDecoration(),
+                    child: Text(
+                      "Otto Bathurst",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 10.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    "Director",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Text(
+                        "Know: Robin Hood (2018), Peaky asdasdasd Blinders (2013), Black Mirror (2011)",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 10.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -221,12 +401,15 @@ class _VideoPageDetailsState extends State<VideoPageDetails> {
         loadingBuilder: (BuildContext context, Widget child,
             ImageChunkEvent loadingProgress) {
           if (loadingProgress == null) return child;
-          return Center(
-            child: CircularProgressIndicator(
-              value: loadingProgress.expectedTotalBytes != null
-                  ? loadingProgress.cumulativeBytesLoaded /
-                      loadingProgress.expectedTotalBytes
-                  : null,
+          return Container(
+            height: MediaQuery.of(context).size.width / 2,
+            child: Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes
+                    : null,
+              ),
             ),
           );
         },
