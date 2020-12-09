@@ -1,3 +1,4 @@
+import 'package:amazon_prime_video/pages/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class UserProfile extends StatefulWidget {
@@ -91,7 +92,7 @@ class _UserProfileState extends State<UserProfile> {
               Icons.settings,
               color: Colors.grey,
             ),
-            onPressed: () => print("settings"),
+            onPressed: _goToSettings,
           )
         ],
       ),
@@ -219,5 +220,10 @@ class _UserProfileState extends State<UserProfile> {
         ],
       ),
     );
+  }
+
+  void _goToSettings() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SettingsPage()));
   }
 }
