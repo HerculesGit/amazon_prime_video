@@ -104,8 +104,7 @@ class WatchableRepository {
             },
             {
               'name': 'RAMBO',
-              'url':
-                  'https://hmlobservatoriodocinema.elav.tmp.br/wp-content/uploads/2018/07/Jean-Claude-Van-Damme-O-Grande-Dragao-Branco.jpg'
+              'url': 'https://i.ytimg.com/vi/oS78T5MbLMY/hqdefault.jpg'
             },
             {
               'name': 'RINGUE DA MORTE',

@@ -1,3 +1,4 @@
+import 'package:amazon_prime_video/pages/language_pape/language_page.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -163,6 +164,11 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _goToChangeLanguage() {
-    print("Go to change language ${DateTime.now()}");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LanguagePage(),
+      ),
+    );
   }
 }

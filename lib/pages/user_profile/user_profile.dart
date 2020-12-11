@@ -1,4 +1,4 @@
-import 'package:amazon_prime_video/pages/settings/settings_page.dart';
+import 'package:amazon_prime_video/pages/settings_page/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class UserProfile extends StatefulWidget {
