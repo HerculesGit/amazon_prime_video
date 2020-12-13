@@ -1,8 +1,12 @@
+import 'package:amazon_prime_video/app_localizations.dart';
+
 class WatchableRepository {
   /// Category - Home, TV Shows, Movies or Kids
   Future<Map<String, dynamic>> findAllWatchableByCategory(
       String category) async {
-    return mockData[category];
+    String key = await AppLocalizations.toEnglish(category);
+    if (key == null) return mockData[category];
+    return mockData[key];
   }
 
   /// movieId or serieId

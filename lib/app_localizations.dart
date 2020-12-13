@@ -30,7 +30,27 @@ class AppLocalizations {
 
   // this method will be called from every widget which needs a localized text
   String translate(String key) {
+    assert(_localizedStrings[key] != null, '$key not found');
     return _localizedStrings[key];
+  }
+
+  /// text = value is not key!
+  /// this method -> from value to key
+  static Future<String> toEnglish(String text) async {
+    String key = "";
+    for (var i = 0; i < _localizedStrings.values.length; i++) {
+      if (_localizedStrings.values.toList()[i] == text) {
+        key = _localizedStrings.keys.toList()[i];
+        break;
+      }
+    }
+
+    String jsonString = await rootBundle.loadString('lang/en.json');
+    Map<String, dynamic> jsonMap = json.decode(jsonString);
+    Map<String, dynamic> mapLocalized =
+        jsonMap.map((key, value) => MapEntry(key, value.toString()));
+
+    return mapLocalized[key];
   }
 }
 

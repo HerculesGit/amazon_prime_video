@@ -1,3 +1,4 @@
+import 'package:amazon_prime_video/shared/constants/localizations_constants.dart';
 import 'package:flutter/material.dart';
 
 class FindPage extends StatefulWidget {
@@ -56,7 +57,8 @@ class _FindPageState extends State<FindPage> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              hintText: "Search by actor, title...",
+              hintText:
+                  getTranslate(context, "search_page_search_by_actor_title"),
               hintStyle: TextStyle(color: Colors.grey),
               fillColor: Colors.white,
 
@@ -107,13 +109,22 @@ class _FindPageState extends State<FindPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _title("Browse by"),
+                _title(getTranslate(context, "search_page_browser_by")),
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    _browseRow(["Included with Prime", "Channels"]),
-                    _browseRow(["TV", "Movie"]),
-                    _browseRow(["Amazon Originals", "Kids"]),
+                    _browseRow([
+                      getTranslate(context, "search_page_include_prime"),
+                      getTranslate(context, "search_page_channels")
+                    ]),
+                    _browseRow([
+                      getTranslate(context, "search_page_tv"),
+                      getTranslate(context, "search_page_channels")
+                    ]),
+                    _browseRow([
+                      getTranslate(context, "search_page_amazon_originals"),
+                      getTranslate(context, "search_page_kids")
+                    ])
                   ],
                 )
               ],
@@ -164,16 +175,6 @@ class _FindPageState extends State<FindPage> {
     );
   }
 
-  List<String> geners = [
-    "Action and adventure",
-    "Comedy",
-    "Drama",
-    "Documentary",
-    "Kids an family",
-    "Fantasy",
-    "Horror",
-    "Romance"
-  ];
   Widget _buildGeners() {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
@@ -183,14 +184,14 @@ class _FindPageState extends State<FindPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _title("Genres"),
+              _title(getTranslate(context, "search_page_geners")),
               _tilesList([
-                "Action and adventure",
-                "Comedy",
-                "Drama",
-                "Fantasy",
-                "Documentary",
-                "Kids and family",
+                getTranslate(context, "search_page_action_and_adventure"),
+                getTranslate(context, "search_page_comedy"),
+                getTranslate(context, "search_page_drama"),
+                getTranslate(context, "search_page_fantasy"),
+                getTranslate(context, "search_page_documentary"),
+                getTranslate(context, "search_page_kids_and_family"),
               ]),
             ],
           ),
@@ -209,13 +210,13 @@ class _FindPageState extends State<FindPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _title("Categories"),
+              _title(getTranslate(context, "search_page_categories")),
               _tilesList([
-                "Recently added movies",
-                "Recently added TV",
-                "Top movies",
-                "Top TV",
-                "Fantasy",
+                getTranslate(context, "search_page_recently_added_movies"),
+                getTranslate(context, "search_page_recently_added_tv"),
+                getTranslate(context, "search_page_top_movies"),
+                getTranslate(context, "search_page_top_tv"),
+                getTranslate(context, "search_page_fantasy"),
               ]),
             ],
           ),
@@ -234,13 +235,13 @@ class _FindPageState extends State<FindPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _title("Channels"),
+              _title(getTranslate(context, "search_page_channel")),
               _tilesList([
-                "Starzplay",
-                "Paramount+",
-                "MGM",
-                "Looke",
-                "Noggin",
+                getTranslate(context, "search_page_starzplay"),
+                getTranslate(context, "search_page_paramount"),
+                getTranslate(context, "search_page_mgm"),
+                getTranslate(context, "search_page_looke"),
+                getTranslate(context, "search_page_noggin"),
               ]),
             ],
           ),

@@ -1,3 +1,4 @@
+import 'package:amazon_prime_video/shared/constants/localizations_constants.dart';
 import 'package:flutter/material.dart';
 
 class DownloadTab extends StatefulWidget {
@@ -69,7 +70,7 @@ class _DownloadTabState extends State<DownloadTab> {
             color: Colors.grey[500],
           ),
           Text(
-            "No videos downloaded",
+            getTranslate(context, "download_page_no_videos_downloaded"),
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

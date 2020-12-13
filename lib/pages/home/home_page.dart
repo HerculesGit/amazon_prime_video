@@ -1,6 +1,7 @@
 import 'package:amazon_prime_video/pages/home/home_presenter.dart';
 import 'package:amazon_prime_video/pages/video_details/video_details_page.dart';
 import 'package:amazon_prime_video/repositories/watchable_respository.dart';
+import 'package:amazon_prime_video/shared/constants/localizations_constants.dart';
 import 'package:amazon_prime_video/widgets/carousel.dart';
 import 'package:amazon_prime_video/widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +17,10 @@ class _HomePageState extends State<HomePage> implements IHomeContract {
 
   Size _size;
 
-  static final String txtTabHome = 'Home';
-  static final String txtTvShows = 'TV Shows';
-  static final String txtMovies = 'Movies';
-  static final String txtKids = 'Kids';
+  String txtTabHome = 'Home';
+  String txtTvShows = 'TV Shows';
+  String txtMovies = 'Movies';
+  String txtKids = 'Kids';
 
   int tabIndex = 0;
 
@@ -36,8 +37,16 @@ class _HomePageState extends State<HomePage> implements IHomeContract {
     presenter.findAllWatchableByCategory(txtTabHome);
   }
 
+  void setTranslation() {
+    txtTabHome = getTranslate(context, 'app_bar_home');
+    txtTvShows = getTranslate(context, 'app_bar_tv_shows');
+    txtMovies = getTranslate(context, 'app_bar_movies');
+    txtKids = getTranslate(context, 'app_bar_kids');
+  }
+
   @override
   Widget build(BuildContext context) {
+    setTranslation();
     _size = (MediaQuery.of(context).size);
     return Scaffold(
       backgroundColor: backgroundColor,

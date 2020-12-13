@@ -1,5 +1,9 @@
 import 'package:amazon_prime_video/pages/settings_page/settings_page.dart';
+import 'package:amazon_prime_video/shared/constants/localizations_constants.dart';
+import 'package:amazon_prime_video/shared/settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -13,42 +17,55 @@ class _UserProfileState extends State<UserProfile> {
     fontSize: 12.0,
   );
 
+  AppSettings appSettings;
+
+  @override
+  void initState() {
+    appSettings = Provider.of<AppSettings>(context, listen: false);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
-            radius: 0.6,
-            focal: Alignment.topLeft,
-            center: Alignment.topLeft,
-            stops: [
-              0.02,
-              1.0,
-            ],
-            colors: [
-              Color.fromRGBO(11, 47, 71, 1),
-              Color.fromRGBO(14, 23, 30, 1),
-            ],
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: Container(
+      body: Observer(
+        builder: (context) {
+          if (appSettings.currentLanguange != null) {}
+          return Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: <Widget>[
-                _buildAppBar(),
-                _buildWatchlistTitle(),
-                _buildFilter(),
-                _buildVideoList(),
-              ],
+            decoration: BoxDecoration(
+              gradient: RadialGradient(
+                radius: 0.6,
+                focal: Alignment.topLeft,
+                center: Alignment.topLeft,
+                stops: [
+                  0.02,
+                  1.0,
+                ],
+                colors: [
+                  Color.fromRGBO(11, 47, 71, 1),
+                  Color.fromRGBO(14, 23, 30, 1),
+                ],
+              ),
             ),
-          ),
-        ),
+            child: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: <Widget>[
+                    _buildAppBar(),
+                    _buildWatchlistTitle(),
+                    _buildFilter(),
+                    _buildVideoList(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -105,7 +122,7 @@ class _UserProfileState extends State<UserProfile> {
       child: Column(
         children: <Widget>[
           Text(
-            "Watchlist",
+            getTranslate(context, "profile_page_watchlist"),
             style: TextStyle(
               color: Colors.grey[100],
             ),
@@ -125,7 +142,7 @@ class _UserProfileState extends State<UserProfile> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text("Watchlist",
+                  child: Text(getTranslate(context, "profile_page_watchlist"),
                       style: TextStyle(color: Colors.transparent)),
                   color: Colors.white,
                 ),
@@ -155,7 +172,7 @@ class _UserProfileState extends State<UserProfile> {
                 color: Color.fromRGBO(64, 83, 98, 1),
                 child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text("Filter",
+                    child: Text(getTranslate(context, "profile_page_filter"),
                         style: TextStyle(color: Colors.white, fontSize: 10.0))),
               ),
             ),
