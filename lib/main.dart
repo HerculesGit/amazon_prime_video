@@ -1,13 +1,20 @@
 import 'package:amazon_prime_video/pages/page_bottom_manager/page_bottom_manager.dart';
+import 'package:amazon_prime_video/shared/settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'app_localizations.dart';
 import 'pages/language_pape/language_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      Provider(create: (_) => AppSettings()),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

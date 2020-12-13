@@ -35,6 +35,7 @@ dependencies:
 
   mobx: ^1.2.1+4
   flutter_mobx: ^1.1.0+2
+  provider: ^4.3.2+3
 
 
 dev_dependencies:
@@ -42,6 +43,9 @@ dev_dependencies:
     sdk: flutter
   build_runner:
   mobx_codegen:
+
+# dependency_overrides:
+#   analyzer: 0.39.14
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

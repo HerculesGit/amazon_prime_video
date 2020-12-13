@@ -9,6 +9,8 @@ class LanguagePage extends StatefulWidget {
 
 class _LanguagePageState extends State<LanguagePage> {
   String currentLanguage = "English";
+  Locale currentLocale;
+
   Map<String, Map<String, String>> languageMap = {
     "pt": {"BR": "Português (Brasil)"},
     "en": {"US": "English"}
@@ -17,36 +19,39 @@ class _LanguagePageState extends State<LanguagePage> {
   Widget build(BuildContext context) {
     final size = Size(MediaQuery.of(context).size.width, 75);
 
-    return Scaffold(
-      appBar: null,
-      body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              radius: 0.6,
-              focal: Alignment.topLeft,
-              center: Alignment.topLeft,
-              stops: [
-                0.02,
-                1.0,
-              ],
-              colors: [
-                Color.fromRGBO(11, 47, 71, 1),
-                Color.fromRGBO(14, 23, 30, 1),
-              ],
-            ),
-          ),
-          child: Stack(
-            fit: StackFit.expand,
-            children: <Widget>[
-              Positioned(top: 0, child: _buildAppbar(size)),
-              Positioned(
-                top: size.height,
-                child: _buildAllLanguage(size),
+    return WillPopScope(
+      onWillPop: () async => _returnCurrentLanguage(),
+      child: Scaffold(
+        appBar: null,
+        body: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              gradient: RadialGradient(
+                radius: 0.6,
+                focal: Alignment.topLeft,
+                center: Alignment.topLeft,
+                stops: [
+                  0.02,
+                  1.0,
+                ],
+                colors: [
+                  Color.fromRGBO(11, 47, 71, 1),
+                  Color.fromRGBO(14, 23, 30, 1),
+                ],
               ),
-            ],
-          )),
+            ),
+            child: Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                Positioned(top: 0, child: _buildAppbar(size)),
+                Positioned(
+                  top: size.height,
+                  child: _buildAllLanguage(size),
+                ),
+              ],
+            )),
+      ),
     );
   }
 
@@ -88,14 +93,10 @@ class _LanguagePageState extends State<LanguagePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildTileLanguage("English", () {
-            AppLocalizations.load(Locale('en', 'US')).then((value) {
-              setState(() {});
-            });
+            _changeLanguage(Locale('en', 'US'));
           }, true, false),
           _buildTileLanguage("Português (Brasil)", () {
-            AppLocalizations.load(Locale('pt', 'BR')).then((value) {
-              setState(() {});
-            });
+            _changeLanguage(Locale('pt', 'BR'));
           }, false, true),
         ],
       ),
@@ -126,6 +127,7 @@ class _LanguagePageState extends State<LanguagePage> {
                     groupValue: currentLanguage,
                     onChanged: (value) {
                       setState(() => currentLanguage = value);
+                      onPressed();
                     },
                   ),
                   Container(
@@ -146,5 +148,20 @@ class _LanguagePageState extends State<LanguagePage> {
         ],
       ),
     );
+  }
+
+  _changeLanguage(Locale locale) {
+    this.currentLocale = locale;
+    AppLocalizations.load(this.currentLocale).then((value) {
+      setState(() {});
+    });
+  }
+
+  _returnCurrentLanguage() {
+    if (currentLanguage == null || currentLocale == null) {
+      Navigator.pop(context, null);
+    } else {
+      Navigator.pop(context, [currentLocale, currentLanguage]);
+    }
   }
 }
