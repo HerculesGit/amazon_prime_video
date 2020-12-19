@@ -1,4 +1,5 @@
 import 'package:amazon_prime_video/pages/page_bottom_manager/page_bottom_manager.dart';
+import 'package:amazon_prime_video/pages/splash_screen/splash_screen.dart';
 import 'package:amazon_prime_video/shared/settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       debugShowCheckedModeBanner: false,
-      home: PageBottomManager(),
+      home: SplashScreen(),
     );
   }
 }

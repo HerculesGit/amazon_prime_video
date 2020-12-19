@@ -1,6 +1,9 @@
 import 'package:amazon_prime_video/app_localizations.dart';
 import 'package:amazon_prime_video/shared/constants/localizations_constants.dart';
+import 'package:amazon_prime_video/shared/settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class LanguagePage extends StatefulWidget {
   @override
@@ -15,15 +18,30 @@ class _LanguagePageState extends State<LanguagePage> {
     "pt": {"BR": "Português (Brasil)"},
     "en": {"US": "English"}
   };
+
+  AppSettings appSettings;
+
+  @override
+  void initState() {
+    appSettings = Provider.of<AppSettings>(context, listen: false);
+    if (appSettings.currentLanguange != null) {
+      currentLanguage = appSettings.currentLanguange;
+    }
+    if (appSettings.currentLocale != null) {
+      currentLocale = appSettings.currentLocale;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = Size(MediaQuery.of(context).size.width, 75);
 
-    return WillPopScope(
-      onWillPop: () async => _returnCurrentLanguage(),
-      child: Scaffold(
-        appBar: null,
-        body: Container(
+    return Scaffold(
+      appBar: null,
+      body: Observer(builder: (context) {
+        if (appSettings.currentLanguange != null) {}
+        return Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
@@ -50,8 +68,8 @@ class _LanguagePageState extends State<LanguagePage> {
                   child: _buildAllLanguage(size),
                 ),
               ],
-            )),
-      ),
+            ));
+      }),
     );
   }
 
@@ -153,15 +171,8 @@ class _LanguagePageState extends State<LanguagePage> {
   _changeLanguage(Locale locale) {
     this.currentLocale = locale;
     AppLocalizations.load(this.currentLocale).then((value) {
-      setState(() {});
+      // setState(() {});
+      appSettings.changeLanguage(currentLocale, currentLanguage);
     });
-  }
-
-  _returnCurrentLanguage() {
-    if (currentLanguage == null || currentLocale == null) {
-      Navigator.pop(context, null);
-    } else {
-      Navigator.pop(context, [currentLocale, currentLanguage]);
-    }
   }
 }

@@ -25,6 +25,21 @@ mixin _$AppSettings on _AppSettingsBase, Store {
     });
   }
 
+  final _$currentLocaleAtom = Atom(name: '_AppSettingsBase.currentLocale');
+
+  @override
+  Locale get currentLocale {
+    _$currentLocaleAtom.reportRead();
+    return super.currentLocale;
+  }
+
+  @override
+  set currentLocale(Locale value) {
+    _$currentLocaleAtom.reportWrite(value, super.currentLocale, () {
+      super.currentLocale = value;
+    });
+  }
+
   final _$changeLanguageAsyncAction =
       AsyncAction('_AppSettingsBase.changeLanguage');
 
@@ -34,10 +49,19 @@ mixin _$AppSettings on _AppSettingsBase, Store {
         .run(() => super.changeLanguage(locale, language));
   }
 
+  final _$loadLocalStorageAsyncAction =
+      AsyncAction('_AppSettingsBase.loadLocalStorage');
+
+  @override
+  Future loadLocalStorage() {
+    return _$loadLocalStorageAsyncAction.run(() => super.loadLocalStorage());
+  }
+
   @override
   String toString() {
     return '''
-currentLanguange: ${currentLanguange}
+currentLanguange: ${currentLanguange},
+currentLocale: ${currentLocale}
     ''';
   }
 }

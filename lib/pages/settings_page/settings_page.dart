@@ -224,14 +224,11 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> _goToChangeLanguage() async {
-    final List results = await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => LanguagePage(),
       ),
     );
-    if (results != null) {
-      appSettings.changeLanguage(results.first, results.last);
-    }
   }
 }
